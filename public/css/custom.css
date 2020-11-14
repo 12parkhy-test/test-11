@@ -9,7 +9,7 @@ body {
 .grid-container {
     height: 100vh;
     display: grid;
-    grid-template-columns: 0.4fr 1fr 0.4fr;
+    grid-template-columns: 1fr 1fr 1fr;
     grid-template-rows: 0.1fr 0.1fr 0.7fr 0.1fr;
     grid-template-areas: 
     "nav nav nav"
