@@ -1,0 +1,240 @@
+* {
+    box-sizing: border-box
+}
+
+body {
+    margin: 0;
+}
+
+.grid-container {
+    height: 100vh;
+    display: grid;
+    grid-template-columns: 0.4fr 1fr 0.4fr;
+    grid-template-rows: 0.1fr 0.1fr 0.7fr 0.1fr;
+    grid-template-areas: 
+    "nav nav nav"
+    "left-side header right-side"
+    "left-side main right-side"
+    "left-side pagination right-side"
+}
+
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: rgb(26, 12, 110);
+    color: white;
+    grid-area: nav;
+}
+
+.header-container {
+    grid-area: header;
+    margin-bottom: 1rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.table-container {
+    grid-area: main;
+    display: flex;
+    justify-content: center;
+    margin-bottom: 1rem;
+}
+
+.table-container table {
+    border-collapse: collapse;
+}
+
+.table-container table thead tr {
+    background-color: #c45912;
+    color: white;
+    text-align: center;
+    font-weight: bold;
+}
+
+.table-container table thead tr th, 
+.table-container table tbody tr td {
+    padding: 10px 20px;
+    text-align: center;
+}
+
+.table-container table tbody tr {
+    border-bottom: 1px solid #e6dddd;
+}
+
+.pagination-buttons-container {
+    display: flex;
+    grid-area: pagination;
+    justify-content: center;
+}
+
+.pagination-button {
+    width: 30px;
+    height: 30px;
+    border: 1px solid black;
+    margin: 2px;
+    border-radius: 2px;
+    color: black;
+    padding: 2px 2px
+}
+
+.logo {
+    color: white;
+    font-size: 2rem;
+}
+
+.logo-anchor {
+    text-decoration: none;
+    margin-left: 1rem;
+}
+
+.navbar-links ul {
+    margin: 0;
+    padding: 0;
+    display: flex
+}
+
+.navbar-links li {
+    list-style: none;
+}
+
+.navbar-links li a {
+    text-decoration: none;
+    color: white;
+    padding: 1.5rem;
+    display: inline-block;
+}
+
+.navbar-links li:hover {
+    background-color: rgb(139, 131, 131);
+}
+
+.toggle-button {
+    position: absolute;
+    top: 0.7rem;
+    right: 1rem;
+    display: none;
+    flex-direction: column;
+    justify-content: space-between;
+    width: 35px;
+    height: 20px
+}
+
+.toggle-button .bar {
+    height: 3px;
+    width: 100%;
+    background-color: white;
+}
+
+@media (max-width: 700px) {
+    .toggle-button {
+        display: flex;
+    }
+
+    .navbar-links {
+        display: none;
+        width: 100% 
+    }
+
+    .navbar {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .navbar-links ul {
+        width: 100%;
+        flex-direction: column;
+    }
+
+    .navbar-links li {
+        text-align: center;
+    }
+
+    .navbar-links li a {
+        padding: 0.5rem 1rem
+    }
+
+    .navbar-links.active {
+        display: flex
+    }
+}
+
+.form-container {
+    display: flex;
+    flex-direction: column;
+}
+
+.form-group {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1rem;
+}
+
+.modal .modal-body label {
+    font-weight: bold;
+
+}
+
+.modal {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%) scale(0);
+    transition: 200ms ease-in-out;
+    border: 1px solid black;
+    border-radius: 10px;
+    z-index: 10;
+    background-color: white;
+    width: 500px;
+    max-width: 80%;
+}
+
+.modal.active {
+    transform: translate(-50%, -50%) scale(1);
+}
+
+.modal-header {
+    padding: 10px 15px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid black
+}
+
+.modal-header .title {
+    font-size: 1.25rem;
+    font-weight: bold
+}
+
+.modal-header .close-button {
+    cursor: pointer;
+    border: none;
+    outline: none;
+    background: none;
+    font-size: 1.25rem;
+    font-weight: bold
+} 
+
+.modal-body {
+    padding: 10px 15px
+}
+
+#overlay {
+    position: fixed;
+    opacity: 0;
+    transition: 200ms ease-in-out;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgb(0, 0, 0, 0.5);
+    pointer-events: none;
+}
+
+#overlay.active {
+    opacity: 1;
+    pointer-events: all;
+}
+

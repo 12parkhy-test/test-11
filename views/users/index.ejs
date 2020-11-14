@@ -1,0 +1,123 @@
+<nav class="navbar">
+    <a class="logo-anchor" href="/users/1/album">
+        <div class="logo">ABC</div>
+    </a>
+    <a href="#" class="toggle-button">
+        <span class='bar'></span>
+        <span class='bar'></span>
+        <span class='bar'></span>
+    </a>
+    <div class="navbar-links">
+        <ul>
+            <li><a href="/users/1/album">Home</a></li>
+            <li><a href="#">About</a></li>
+        </ul>
+    </div>
+</nav>
+<div class="grid-container">
+    <div class="header-container">
+        <div class="selection-container">
+            <label for="users">Choose a user:</label>
+            <select name="users" id="users">
+                <% userIds.forEach((userId) => { %>
+                <% if (paginatedResults.userId == userId) { %>
+                <option value="<%= userId %>" selected><%= userId %></option>
+                <% } %>
+                <% if (paginatedResults.userId != userId) { %>
+                <option value="<%= userId %>"><%= userId %></option>
+                <% } %>
+                <% }) %>
+            </select>
+        </div>
+        <div class="general-buttons-container">
+            <button data-modal-target="#modal1">Add</button>
+        </div>
+    </div>
+    <div class="table-container">
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>USER ID</th>
+                    <th>PHOTO</th>
+                    <th>ID</th>
+                    <th>TITLE</th>
+                    <th></th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                <% paginatedResults.results.forEach((result) => { %>
+                <tr>
+                    <td>
+                        <%= paginatedResults.userId %>
+                    </td>
+                    <td>
+                        <img src="https://via.placeholder.com/100" />
+                    </td>
+                    <td>
+                        <%= result.id %>
+                    </td>
+                    <td>
+                        <%= result.title %>
+                    </td>
+                    <td>
+                        <form action="/users/<%= paginatedResults.userId %>/album/<%= result.id %>?_method=DELETE"
+                            method="POST">
+                            <button type="submit" class="btn btn-danger">Delete</button>
+                        </form>
+                    </td>
+                    <td>
+                        <button data-modal-target="#modal2">Update</button>
+                        <div class="modal" id="modal2">
+                            <div class="modal-header">
+                                <div class="title">Update A Photo</div>
+                                <button data-close-button class="close-button">&times;</button>
+                            </div>
+                            <div class="modal-body">
+                                <form class="form-container" action="/users/<%= paginatedResults.userId %>/album/<%= result.id %>?_method=PUT"
+                                    method="POST">
+                                    <div class="form-group">
+                                        <label for="title">Title</label>
+                                        <input type="text" class="form-control" name="title" id="title">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="albumPhoto">Album Photo</label>
+                                        <input type="file" class="form-control" name="albumPhoto" id="albumPhoto">
+                                    </div>
+                                    <button type="submit" class="btn btn-primary">Update</button>
+                                </form>
+                            </div>
+                        </div>
+                    </td>
+                </tr>
+                <% }) %>
+            </tbody>
+        </table>
+    </div>
+    <div class="pagination-buttons-container">
+        <% for (let i = 1; i <= paginatedResults.numOfButtons; i++) { %>
+        <button type="button" class="pagination-button"><%= i %></button>
+        <% } %>
+    </div>
+</div>
+
+<div class="modal" id="modal1">
+    <div class="modal-header">
+        <div class="title">Add A Photo</div>
+        <button data-close-button class="close-button">&times;</button>
+    </div>
+    <div class="modal-body">
+        <form class="form-container" action='/users/<%= paginatedResults.userId %>/album' method="POST">
+                <div class="form-group">
+                    <label for="title">Title</label>
+                    <input type="text" class="form-control" name="title" id="title">
+                </div>
+                <div class="form-group">
+                    <label for="albumPhoto">Album Photo</label>
+                    <input type="file" class="form-control" name="albumPhoto" id="albumPhoto">
+                </div>
+                <button type="submit" class="btn btn-primary">Add</button>
+        </form>
+    </div>
+</div>
+<div id="overlay"></div>
